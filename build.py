@@ -28,6 +28,9 @@ VM_R, VM_X = 1, 4
 PAGE       = 0x4000
 
 # ---------- code ----------
+# To get the hex encoding of arm64 instructions, let an assembler do it:
+#   echo 'mov x16,#1; mov x0,#0; svc #0x80' | as -arch arm64 -o /tmp/a.o
+#   otool -t /tmp/a.o
 CODE = struct.pack('<III',
     0xd2800030,   # mov x16, #1    (Darwin SYS_exit on arm64)
     0xd2800000,   # mov x0,  #0

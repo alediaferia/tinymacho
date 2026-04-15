@@ -46,6 +46,11 @@ The "useful" part of the file is only 364 bytes:
 | `LC_CODE_SIGNATURE`     |    16 | Points into __LINKEDIT                       |
 | Code (3 instructions)   |    12 | `mov x16,#1 ; mov x0,#0 ; svc #0x80`         |
 
+The three instructions follow Darwin's arm64 syscall ABI: syscall number
+in `x16`, arguments in `x0..x5`, trap via `svc #0x80`. Syscall 1 is
+`exit`. The canonical list lives in XNU's
+[`bsd/kern/syscalls.master`](https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/syscalls.master).
+
 Everything else is padding and the ad-hoc code signature blob that
 `codesign` writes after the fact.
 
