@@ -20,14 +20,14 @@ The binary does nothing but call `exit(0)`.
 
 ## Files
 
-- `build_minimal.py` — the generator. Emits `/tmp/tiny` byte-by-byte.
-- `/tmp/tiny` — the resulting 34,672-byte arm64 Mach-O executable.
+- `build_minimal.py` — the generator. Emits `tinymacho` byte-by-byte.
+- `tinymacho` — the resulting 34,672-byte arm64 Mach-O executable.
 
 ## Running
 
 ```sh
 python3 build_minimal.py
-/tmp/tiny; echo $?     # prints 0
+tinymacho; echo $?     # prints 0
 ```
 
 ## What the binary contains
@@ -61,6 +61,13 @@ A valid, well-formed Mach-O runs for ~0 instructions before AMFI
 (`AppleMobileFileIntegrity`) sends `SIGKILL`. Every binary on arm64
 must carry at least an ad-hoc code signature. `codesign -s - <path>`
 creates one.
+
+Normally you never notice this: since Xcode 14, Apple's linker (`ld`)
+applies an ad-hoc signature by default on arm64 as the last step of
+linking (see `-adhoc_codesign` in `man ld`). A `clang hello.c` binary
+"just runs" because `ld` already signed it. Here we skip the linker
+entirely, so we have to invoke `codesign` ourselves — it's not extra
+ceremony, it's the step the linker would have done.
 
 ### 2. `LC_UNIXTHREAD` is no longer allowed for main executables
 
