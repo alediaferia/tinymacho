@@ -1,4 +1,4 @@
-# tiny
+# tinymacho
 
 A hand-assembled, runnable Mach-O executable for Apple Silicon macOS —
 built byte-by-byte from Python, without invoking a compiler or linker.
