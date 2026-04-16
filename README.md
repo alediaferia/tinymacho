@@ -20,13 +20,13 @@ The binary does nothing but call `exit(0)`.
 
 ## Files
 
-- `build_minimal.py` — the generator. Emits `tinymacho` byte-by-byte.
+- `build.py` — the generator. Emits `tinymacho` byte-by-byte.
 - `tinymacho` — the resulting 34,672-byte arm64 Mach-O executable.
 
 ## Running
 
 ```sh
-python3 build_minimal.py
+python3 build.py
 tinymacho; echo $?     # prints 0
 ```
 
